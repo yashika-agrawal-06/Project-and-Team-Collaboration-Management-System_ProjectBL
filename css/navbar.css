@@ -51,3 +51,33 @@
   .layout { flex-direction: column; }
   .sidebar{ width: 100%; border-right: none; border-bottom: 1px solid var(--color-border); }
 }
+.navbar__toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 4px 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.task-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.task-list__item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.task-list__item:hover { border-color: var(--color-primary); }
+
+@media (max-width: 600px) {
+  .navbar__toggle { display: block; }
+  .navbar__nav { display: none; }
+  .sidebar { display: none; }
+  .sidebar--open { display: block; }
+}
