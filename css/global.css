@@ -94,3 +94,13 @@ h3 {
   text-align: center;
   font-size: 0.9rem;
 }
+
+.form-field { display: flex; flex-direction: column; gap: 4px; }
+
+.form-error { color: #dc2626; font-size: 0.8rem; min-height: 1em; }
+
+.input--invalid { border-color: #dc2626 !important; }
+
+.settings { flex: 1; padding: var(--space-lg); }
+
+.settings__card { max-width: 480px; }

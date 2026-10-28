@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | CollabHub</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+</head>
+<body>
+  <header class="navbar">
+    <button class="navbar__toggle" aria-label="Toggle menu">&#9776;</button>
+    <div class="navbar__brand">CollabHub</div>
+    <nav class="navbar__nav">
+      <a href="dashboard.html" class="navbar__link">Dashboard</a>
+      <a href="kanban.html" class="navbar__link">Task Board</a>
+      <a href="settings.html" class="navbar__link navbar__link--active">Settings</a>
+    </nav>
+    <div class="navbar__profile">Yashika</div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <ul class="sidebar__list">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="kanban.html">Task Board</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="settings">
+      <section class="card settings__card">
+        <h2>Profile Settings</h2>
+        <form class="auth__form" data-validate novalidate>
+          <div class="form-field">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required placeholder="Your name">
+            <span class="form-error"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="s-email">Email</label>
+            <input type="email" id="s-email" required placeholder="you@example.com">
+            <span class="form-error"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="s-pass">New Password</label>
+            <input type="password" id="s-pass" required placeholder="Min 6 characters">
+            <span class="form-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primary">Save Changes</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 CollabHub — GLA University Project</p>
+  </footer>
+
+  <script src="../js/validation.js"></script>
+  <script src="../js/nav-toggle.js"></script>
+</body>
+</html>
