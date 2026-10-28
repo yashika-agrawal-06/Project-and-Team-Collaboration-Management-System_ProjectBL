@@ -14,21 +14,28 @@
   <main class="auth">
     <section class="auth__card">
       <h2>Welcome Back</h2>
-      <form class="auth__form" novalidate>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required placeholder="you@example.com">
+      <form class="auth__form" data-validate data-redirect="dashboard.html" novalidate>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+          <span class="form-error"></span>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required placeholder="Password">
+        <div class="form-field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="Min 6 characters">
+          <span class="form-error"></span>
+        </div>
 
         <button type="submit" class="btn btn--primary">Log In</button>
       </form>
-      <p class="auth__link"><a href="dashboard.html">Skip to Dashboard (prototype)</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2026 CollabHub - GLA University Project</p>
+    <p>&copy; 2026 CollabHub — GLA University Project</p>
   </footer>
+
+  <script src="../js/validation.js"></script>
 </body>
 </html>
