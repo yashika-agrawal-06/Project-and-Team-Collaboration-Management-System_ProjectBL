@@ -8,38 +8,65 @@
   <link rel="stylesheet" href="../css/navbar.css">
   <link rel="stylesheet" href="../css/buttons.css">
   <link rel="stylesheet" href="../css/forms.css">
+  <link rel="stylesheet" href="../css/modal.css">
 </head>
 <body>
   <header class="navbar">
+    <button class="navbar__toggle" aria-label="Toggle menu">&#9776;</button>
     <div class="navbar__brand">CollabHub</div>
     <nav class="navbar__nav">
       <a href="dashboard.html" class="navbar__link">Dashboard</a>
       <a href="kanban.html" class="navbar__link navbar__link--active">Task Board</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <button class="btn btn--primary">+ New Task</button>
+    <button class="btn btn--primary" data-modal-open="new-task-modal">+ New Task</button>
   </header>
 
+  <div class="kanban-toolbar">
+    <input type="search" id="task-filter" placeholder="Filter tasks...">
+  </div>
+
   <main class="kanban">
-    <section class="kanban__column">
-      <h3>To-Do</h3>
+    <section class="kanban__column" data-status="todo">
+      <h3>To-Do <span class="kanban__count">0</span></h3>
       <article class="kanban__card">Design login page</article>
       <article class="kanban__card">Set up repo structure</article>
     </section>
 
-    <section class="kanban__column">
-      <h3>In Progress</h3>
+    <section class="kanban__column" data-status="progress">
+      <h3>In Progress <span class="kanban__count">0</span></h3>
       <article class="kanban__card">Build dashboard grid</article>
     </section>
 
-    <section class="kanban__column">
-      <h3>Completed</h3>
+    <section class="kanban__column" data-status="done">
+      <h3>Completed <span class="kanban__count">0</span></h3>
       <article class="kanban__card">Project synopsis</article>
     </section>
   </main>
 
+  <div class="modal" id="new-task-modal">
+    <div class="modal__box">
+      <div class="modal__header">
+        <h3>New Task</h3>
+        <button class="modal__close" data-modal-close aria-label="Close">&times;</button>
+      </div>
+      <form id="task-form" novalidate>
+        <div class="form-group">
+          <label for="task-title">Task Title</label>
+          <input type="text" id="task-title" placeholder="e.g. Write README">
+          <span id="task-error" class="form-error"></span>
+        </div>
+        <button type="submit" class="btn btn--primary">Add Task</button>
+      </form>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <p>&copy; 2026 CollabHub — GLA University Project</p>
   </footer>
+
+  <script src="../js/nav-toggle.js"></script>
+  <script src="../js/modal.js"></script>
+  <script src="../js/kanban-interactions.js"></script>
 </body>
 </html>
