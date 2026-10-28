@@ -56,3 +56,18 @@
 .kanban__column--over { outline: 2px dashed var(--color-primary); }
 
 .kanban__column { min-height: 200px; }
+
+.board { flex: 1; min-width: 0; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 8px;
+  color: #fff;
+}
+
+.tag--high { background: #dc2626; }
+.tag--medium { background: #d97706; }
+.tag--low { background: #16a34a; }

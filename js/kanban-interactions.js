@@ -37,15 +37,23 @@ document.querySelectorAll('.kanban__column').forEach((col) => {
 document.getElementById('task-form')?.addEventListener('submit', (e) => {
   e.preventDefault();
   const input = document.getElementById('task-title');
+  const priority = document.getElementById('task-priority').value;
   const title = input.value.trim();
   if (!title) {
     document.getElementById('task-error').textContent = 'Task title is required';
     return;
   }
   document.getElementById('task-error').textContent = '';
+
   const card = document.createElement('article');
   card.className = 'kanban__card';
-  card.textContent = title;
+  card.textContent = title + ' ';
+
+  const tag = document.createElement('span');
+  tag.className = 'tag tag--' + priority;
+  tag.textContent = priority[0].toUpperCase() + priority.slice(1);
+  card.appendChild(tag);
+
   bindCard(card);
   document.querySelector('[data-status="todo"]').appendChild(card);
   input.value = '';

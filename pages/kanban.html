@@ -22,27 +22,39 @@
     <button class="btn btn--primary" data-modal-open="new-task-modal">+ New Task</button>
   </header>
 
-  <div class="kanban-toolbar">
-    <input type="search" id="task-filter" placeholder="Filter tasks...">
+  <div class="layout">
+    <aside class="sidebar">
+      <ul class="sidebar__list">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="kanban.html">Task Board</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </aside>
+
+    <div class="board">
+      <div class="kanban-toolbar">
+        <input type="search" id="task-filter" placeholder="Filter tasks...">
+      </div>
+
+      <main class="kanban">
+        <section class="kanban__column" data-status="todo">
+          <h3>To-Do <span class="kanban__count">0</span></h3>
+          <article class="kanban__card">Design login page <span class="tag tag--high">High</span></article>
+          <article class="kanban__card">Set up repo structure <span class="tag tag--medium">Medium</span></article>
+        </section>
+
+        <section class="kanban__column" data-status="progress">
+          <h3>In Progress <span class="kanban__count">0</span></h3>
+          <article class="kanban__card">Build dashboard grid <span class="tag tag--medium">Medium</span></article>
+        </section>
+
+        <section class="kanban__column" data-status="done">
+          <h3>Completed <span class="kanban__count">0</span></h3>
+          <article class="kanban__card">Project synopsis <span class="tag tag--low">Low</span></article>
+        </section>
+      </main>
+    </div>
   </div>
-
-  <main class="kanban">
-    <section class="kanban__column" data-status="todo">
-      <h3>To-Do <span class="kanban__count">0</span></h3>
-      <article class="kanban__card">Design login page</article>
-      <article class="kanban__card">Set up repo structure</article>
-    </section>
-
-    <section class="kanban__column" data-status="progress">
-      <h3>In Progress <span class="kanban__count">0</span></h3>
-      <article class="kanban__card">Build dashboard grid</article>
-    </section>
-
-    <section class="kanban__column" data-status="done">
-      <h3>Completed <span class="kanban__count">0</span></h3>
-      <article class="kanban__card">Project synopsis</article>
-    </section>
-  </main>
 
   <div class="modal" id="new-task-modal">
     <div class="modal__box">
@@ -55,6 +67,14 @@
           <label for="task-title">Task Title</label>
           <input type="text" id="task-title" placeholder="e.g. Write README">
           <span id="task-error" class="form-error"></span>
+        </div>
+        <div class="form-group">
+          <label for="task-priority">Priority</label>
+          <select id="task-priority">
+            <option value="high">High</option>
+            <option value="medium" selected>Medium</option>
+            <option value="low">Low</option>
+          </select>
         </div>
         <button type="submit" class="btn btn--primary">Add Task</button>
       </form>
