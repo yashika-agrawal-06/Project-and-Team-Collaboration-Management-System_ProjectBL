@@ -21,6 +21,9 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: var(--font-body);
   background: var(--color-bg);
   color: var(--color-text);
@@ -104,3 +107,7 @@ h3 {
 .settings { flex: 1; padding: var(--space-lg); }
 
 .settings__card { max-width: 480px; }
+
+.layout { flex: 1; }
+
+.site-footer { margin-top: auto; }
