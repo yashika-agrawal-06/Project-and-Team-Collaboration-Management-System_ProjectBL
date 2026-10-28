@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | CollabHub</title>
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/modal.css">
+</head>
+<body>
+  <header class="navbar">
+    <button class="navbar__toggle" aria-label="Toggle menu">&#9776;</button>
+    <div class="navbar__brand">CollabHub</div>
+    <nav class="navbar__nav">
+      <a href="dashboard.html" class="navbar__link navbar__link--active">Dashboard</a>
+      <a href="kanban.html" class="navbar__link">Task Board</a>
+      <a href="settings.html" class="navbar__link">Settings</a>
+    </nav>
+    <div class="navbar__profile">Yashika</div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <ul class="sidebar__list">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="kanban.html">Task Board</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="dashboard">
+      <section class="dashboard-grid">
+        <article class="card"><h3>Active Projects</h3><p>3 ongoing</p></article>
+        <article class="card"><h3>Pending Tasks</h3><p>12 tasks</p></article>
+        <article class="card"><h3>Team Members</h3><p>3 members</p></article>
+      </section>
+
+      <section class="dashboard__tasks">
+        <h2>Recent Tasks</h2>
+        <ul class="task-list">
+          <li><button class="task-list__item" data-modal-open="task-modal">Design login page</button></li>
+          <li><button class="task-list__item" data-modal-open="task-modal">Build dashboard grid</button></li>
+          <li><button class="task-list__item" data-modal-open="task-modal">Write project synopsis</button></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="task-modal">
+    <div class="modal__box">
+      <div class="modal__header">
+        <h3>Task Details</h3>
+        <button class="modal__close" data-modal-close aria-label="Close">&times;</button>
+      </div>
+      <p><strong>Status:</strong> In Progress</p>
+      <p><strong>Assignee:</strong> Team Member</p>
+      <p><strong>Due:</strong> This week</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 CollabHub — GLA University Project</p>
+  </footer>
+
+  <script src="../js/nav-toggle.js"></script>
+  <script src="../js/modal.js"></script>
+</body>
+</html>
