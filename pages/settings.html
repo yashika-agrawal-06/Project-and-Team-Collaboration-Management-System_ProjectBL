@@ -14,6 +14,7 @@
     <nav class="navbar__nav">
       <a href="dashboard.html" class="navbar__link">Dashboard</a>
       <a href="kanban.html" class="navbar__link">Task Board</a>
+      <a href="team.html" class="navbar__link">Team</a>
       <a href="settings.html" class="navbar__link navbar__link--active">Settings</a>
     </nav>
     <div class="navbar__profile">Yashika</div>
@@ -24,7 +25,9 @@
       <ul class="sidebar__list">
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="kanban.html">Task Board</a></li>
+        <li><a href="team.html">Team</a></li>
         <li><a href="settings.html">Settings</a></li>
+        <li><a href="index.html">Logout</a></li>
       </ul>
     </aside>
 
@@ -45,12 +48,13 @@
           </div>
 
           <div class="form-field">
-            <label for="s-pass">New Password</label>
-            <input type="password" id="s-pass" required placeholder="Min 6 characters">
+            <label for="s-pass">New Password (optional)</label>
+            <input type="password" id="s-pass" placeholder="Min 6 characters">
             <span class="form-error"></span>
           </div>
 
           <button type="submit" class="btn btn--primary">Save Changes</button>
+          <p id="save-message" class="form-success"></p>
         </form>
       </section>
     </main>
@@ -60,7 +64,9 @@
     <p>&copy; 2026 CollabHub — GLA University Project</p>
   </footer>
 
-  <script src="../js/validation.js"></script>
   <script src="../js/nav-toggle.js"></script>
+  <script src="../js/validation.js"></script>
+  <script src="../js/data.js"></script>
+  <script src="../js/settings.js"></script>
 </body>
 </html>

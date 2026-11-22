@@ -1,31 +1,77 @@
 function showError(input, message) {
-  const err = input.parentElement.querySelector('.form-error');
-  if (err) err.textContent = message;
-  input.classList.toggle('input--invalid', Boolean(message));
+  var error = input.parentElement.querySelector('.form-error');
+  if (error) {
+    error.textContent = message;
+  }
+  if (message) {
+    input.classList.add('input--invalid');
+  } else {
+    input.classList.remove('input--invalid');
+  }
 }
 
 function validateField(input) {
-  const v = input.value.trim();
-  if (input.required && !v) return showError(input, 'This field is required'), false;
-  if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
-    return showError(input, 'Enter a valid email'), false;
-  if (input.type === 'password' && v.length < 6)
-    return showError(input, 'Minimum 6 characters'), false;
+  var value = input.value.trim();
+
+  if (value === '') {
+    if (input.required) {
+      showError(input, 'This field is required');
+      return false;
+    }
+    showError(input, '');
+    return true;
+  }
+
+  if (input.type === 'email') {
+    var at = value.indexOf('@');
+    var dot = value.lastIndexOf('.');
+    if (at < 1 || dot < at + 2 || dot === value.length - 1) {
+      showError(input, 'Enter a valid email');
+      return false;
+    }
+  }
+
+  if (input.type === 'password' && value.length < 6) {
+    showError(input, 'Minimum 6 characters');
+    return false;
+  }
+
   showError(input, '');
   return true;
 }
 
-document.querySelectorAll('form[data-validate]').forEach((form) => {
-  const fields = form.querySelectorAll('input[required]');
-  fields.forEach((f) => f.addEventListener('input', () => validateField(f)));
+function setupForm(form) {
+  var fields = form.querySelectorAll('input');
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const ok = [...fields].map(validateField).every(Boolean);
-    if (ok) {
-      const next = form.dataset.redirect;
-      if (next) window.location.href = next;
-      else alert('Saved successfully');
+  for (var i = 0; i < fields.length; i++) {
+    fields[i].addEventListener('input', function () {
+      validateField(this);
+    });
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var allValid = true;
+
+    for (var j = 0; j < fields.length; j++) {
+      if (!validateField(fields[j])) {
+        allValid = false;
+      }
+    }
+    if (!allValid) {
+      return;
+    }
+
+    var redirect = form.getAttribute('data-redirect');
+    if (redirect) {
+      window.location.href = redirect;
+    } else if (typeof onFormValid === 'function') {
+      onFormValid(form);
     }
   });
-});
+}
+
+var forms = document.querySelectorAll('form[data-validate]');
+for (var f = 0; f < forms.length; f++) {
+  setupForm(forms[f]);
+}
