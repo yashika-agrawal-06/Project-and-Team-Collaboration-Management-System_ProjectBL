@@ -134,3 +134,24 @@
   border-radius: var(--radius);
   margin-bottom: var(--space-sm);
 }
+.btn-delete {
+  background: none;
+  border: 1px solid #dc2626;
+  color: #dc2626;
+  border-radius: var(--radius);
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.btn-delete:hover { background: #dc2626; color: #fff; }
+
+.project-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-list__status { float: right; font-size: 0.8rem; color: var(--color-muted); }
+
+.empty { color: var(--color-muted); font-style: italic; }
