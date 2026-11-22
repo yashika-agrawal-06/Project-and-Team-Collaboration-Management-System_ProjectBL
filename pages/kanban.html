@@ -20,7 +20,6 @@
       <a href="team.html" class="navbar__link">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <div class="navbar__profile">Yashika</div>
     <button class="btn btn--primary" data-modal-open="new-task-modal">+ New Task</button>
   </header>
 
@@ -38,23 +37,29 @@
     <div class="board">
       <div class="kanban-toolbar">
         <input type="search" id="task-filter" placeholder="Filter tasks...">
+        <select id="priority-filter">
+          <option value="all">All priorities</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <button type="button" id="clear-done" class="btn btn--secondary">Clear Completed</button>
       </div>
 
       <main class="kanban">
         <section class="kanban__column" data-status="todo">
           <h3>To-Do <span class="kanban__count">0</span></h3>
-          <article class="kanban__card">Design login page <span class="tag tag--high">High</span></article>
-          <article class="kanban__card">Set up repo structure <span class="tag tag--medium">Medium</span></article>
+          <div class="kanban__list"></div>
         </section>
 
         <section class="kanban__column" data-status="progress">
           <h3>In Progress <span class="kanban__count">0</span></h3>
-          <article class="kanban__card">Build dashboard grid <span class="tag tag--medium">Medium</span></article>
+          <div class="kanban__list"></div>
         </section>
 
         <section class="kanban__column" data-status="done">
           <h3>Completed <span class="kanban__count">0</span></h3>
-          <article class="kanban__card">Project synopsis <span class="tag tag--low">Low</span></article>
+          <div class="kanban__list"></div>
         </section>
       </main>
     </div>
@@ -90,8 +95,8 @@
   </footer>
 
   <script src="../js/nav-toggle.js"></script>
-  <script src="../js/data.js"></script>
   <script src="../js/modal.js"></script>
+  <script src="../js/data.js"></script>
   <script src="../js/kanban-interactions.js"></script>
 </body>
 </html>
