@@ -1,71 +1,137 @@
-let dragged = null;
+var tasks = getList(TASK_KEY, DEFAULT_TASKS);
+var draggedId = null;
 
-function bindCard(card) {
+function createCard(task) {
+  var card = document.createElement('article');
+  card.className = 'kanban__card';
   card.draggable = true;
-  card.addEventListener('dragstart', () => {
-    dragged = card;
+
+  var title = document.createElement('span');
+  title.className = 'card-title';
+  title.textContent = task.title;
+
+  var tag = document.createElement('span');
+  tag.className = 'tag tag--' + task.priority;
+  tag.textContent = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
+
+  var del = document.createElement('button');
+  del.className = 'btn-delete';
+  del.textContent = 'Delete';
+  del.addEventListener('click', function () {
+    if (confirm('Delete this task?')) {
+      tasks = removeById(tasks, task.id);
+      saveList(TASK_KEY, tasks);
+      showTasks();
+    }
+  });
+
+  card.addEventListener('dragstart', function () {
+    draggedId = task.id;
     card.classList.add('kanban__card--dragging');
   });
-  card.addEventListener('dragend', () => {
+  card.addEventListener('dragend', function () {
     card.classList.remove('kanban__card--dragging');
-    updateCounts();
+  });
+
+  card.appendChild(title);
+  card.appendChild(tag);
+  card.appendChild(del);
+  return card;
+}
+
+function showTasks() {
+  var text = document.getElementById('task-filter').value.toLowerCase();
+  var priority = document.getElementById('priority-filter').value;
+  var columns = document.querySelectorAll('.kanban__column');
+
+  for (var i = 0; i < columns.length; i++) {
+    var status = columns[i].getAttribute('data-status');
+    var list = columns[i].querySelector('.kanban__list');
+    list.innerHTML = '';
+    var count = 0;
+
+    for (var j = 0; j < tasks.length; j++) {
+      var task = tasks[j];
+      var textMatch = task.title.toLowerCase().indexOf(text) !== -1;
+      var priorityMatch = priority === 'all' || task.priority === priority;
+      if (task.status === status && textMatch && priorityMatch) {
+        list.appendChild(createCard(task));
+        count++;
+      }
+    }
+    columns[i].querySelector('.kanban__count').textContent = count;
+  }
+}
+
+function setupColumn(column) {
+  column.addEventListener('dragover', function (event) {
+    event.preventDefault();
+    column.classList.add('kanban__column--over');
+  });
+
+  column.addEventListener('dragleave', function () {
+    column.classList.remove('kanban__column--over');
+  });
+
+  column.addEventListener('drop', function (event) {
+    event.preventDefault();
+    column.classList.remove('kanban__column--over');
+    var status = column.getAttribute('data-status');
+    for (var k = 0; k < tasks.length; k++) {
+      if (tasks[k].id === draggedId) {
+        tasks[k].status = status;
+      }
+    }
+    saveList(TASK_KEY, tasks);
+    showTasks();
   });
 }
 
-function updateCounts() {
-  document.querySelectorAll('.kanban__column').forEach((col) => {
-    col.querySelector('.kanban__count').textContent = col.querySelectorAll('.kanban__card').length;
-  });
+var allColumns = document.querySelectorAll('.kanban__column');
+for (var c = 0; c < allColumns.length; c++) {
+  setupColumn(allColumns[c]);
 }
 
-document.querySelectorAll('.kanban__card').forEach(bindCard);
+document.getElementById('task-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+  var input = document.getElementById('task-title');
+  var error = document.getElementById('task-error');
+  var title = input.value.trim();
 
-document.querySelectorAll('.kanban__column').forEach((col) => {
-  col.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    col.classList.add('kanban__column--over');
-  });
-  col.addEventListener('dragleave', () => col.classList.remove('kanban__column--over'));
-  col.addEventListener('drop', (e) => {
-    e.preventDefault();
-    col.classList.remove('kanban__column--over');
-    if (dragged) col.appendChild(dragged);
-    updateCounts();
-  });
-});
-
-document.getElementById('task-form')?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const input = document.getElementById('task-title');
-  const priority = document.getElementById('task-priority').value;
-  const title = input.value.trim();
-  if (!title) {
-    document.getElementById('task-error').textContent = 'Task title is required';
+  if (title === '') {
+    error.textContent = 'Task title is required';
     return;
   }
-  document.getElementById('task-error').textContent = '';
+  error.textContent = '';
 
-  const card = document.createElement('article');
-  card.className = 'kanban__card';
-  card.textContent = title + ' ';
+  tasks.push({
+    id: nextId(tasks),
+    title: title,
+    priority: document.getElementById('task-priority').value,
+    status: 'todo'
+  });
+  saveList(TASK_KEY, tasks);
 
-  const tag = document.createElement('span');
-  tag.className = 'tag tag--' + priority;
-  tag.textContent = priority[0].toUpperCase() + priority.slice(1);
-  card.appendChild(tag);
-
-  bindCard(card);
-  document.querySelector('[data-status="todo"]').appendChild(card);
   input.value = '';
   document.getElementById('new-task-modal').classList.remove('modal--open');
-  updateCounts();
+  showTasks();
 });
 
-document.getElementById('task-filter')?.addEventListener('input', (e) => {
-  const q = e.target.value.toLowerCase();
-  document.querySelectorAll('.kanban__card').forEach((c) => {
-    c.style.display = c.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
+document.getElementById('clear-done').addEventListener('click', function () {
+  if (confirm('Remove all completed tasks?')) {
+    var remaining = [];
+    for (var i = 0; i < tasks.length; i++) {
+      if (tasks[i].status !== 'done') {
+        remaining.push(tasks[i]);
+      }
+    }
+    tasks = remaining;
+    saveList(TASK_KEY, tasks);
+    showTasks();
+  }
 });
 
-updateCounts();
+document.getElementById('task-filter').addEventListener('input', showTasks);
+document.getElementById('priority-filter').addEventListener('change', showTasks);
+
+showTasks();
