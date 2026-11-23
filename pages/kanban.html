@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,64 +12,64 @@
   <link rel="stylesheet" href="../css/modal.css">
 </head>
 <body>
-  <header class="navbar">
-    <button class="navbar__toggle" aria-label="Toggle menu">&#9776;</button>
-    <div class="navbar__brand">CollabHub</div>
-    <nav class="navbar__nav">
+  <header class="navbar" id="main-navbar">
+    <button class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-sidebar">&#9776;</button>
+    <a href="dashboard.html" class="navbar__brand">CollabHub</a>
+    <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
       <a href="dashboard.html" class="navbar__link">Dashboard</a>
       <a href="kanban.html" class="navbar__link navbar__link--active">Task Board</a>
       <a href="team.html" class="navbar__link">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
     <button class="btn btn--primary" data-modal-open="new-task-modal">+ New Task</button>
-    <button class="navbar__profile" type="button" aria-label="Profile menu (coming soon)">Yashika</button>
+    <button class="navbar__profile" type="button" aria-label="Profile menu">Yashika</button>
   </header>
 
-  <div class="layout">
-    <aside class="sidebar">
-      <ul class="sidebar__list">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="kanban.html">Task Board</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="settings.html">Settings</a></li>
-        <li><a href="index.html" data-google-signout>Sign out</a></li>
-      </ul>
-    </aside>
+  <!-- Mobile drawer -->
+  <aside class="sidebar" id="mobile-sidebar" aria-label="Mobile navigation">
+    <ul class="sidebar__list">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="kanban.html">Task Board</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="index.html" data-google-signout>Sign out</a></li>
+    </ul>
+  </aside>
+  <div class="sidebar__overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-    <div class="board">
-      <div class="kanban-toolbar">
-        <input type="search" id="task-filter" placeholder="Filter tasks...">
-        <select id="priority-filter">
-          <option value="all">All priorities</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-        <select id="assignee-filter" aria-label="Filter by assignee">
-          <option value="all">All assignees</option>
-        </select>
-        <button type="button" id="clear-done" class="btn btn--secondary">Clear Completed</button>
-      </div>
-      <p class="kanban-hint">Double-click a card (or press Enter) to edit it. Use the arrow keys to move between cards, Shift + Left/Right to move a task to another column, and Delete to remove it.</p>
-
-      <main class="kanban">
-        <section class="kanban__column" data-status="todo">
-          <h3>To-Do <span class="kanban__count">0</span></h3>
-          <div class="kanban__list"></div>
-        </section>
-
-        <section class="kanban__column" data-status="progress">
-          <h3>In Progress <span class="kanban__count">0</span></h3>
-          <div class="kanban__list"></div>
-        </section>
-
-        <section class="kanban__column" data-status="done">
-          <h3>Completed <span class="kanban__count">0</span></h3>
-          <div class="kanban__list"></div>
-        </section>
-      </main>
+  <main class="board" role="main">
+    <div class="kanban-toolbar">
+      <input type="search" id="task-filter" placeholder="Filter tasks...">
+      <select id="priority-filter">
+        <option value="all">All priorities</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <select id="assignee-filter" aria-label="Filter by assignee">
+        <option value="all">All assignees</option>
+      </select>
+      <button type="button" id="clear-done" class="btn btn--secondary">Clear Completed</button>
     </div>
-  </div>
+    <p class="kanban-hint">Double-click a card (or press Enter) to edit it. Use the arrow keys to move between cards, Shift + Left/Right to move a task to another column, and Delete to remove it.</p>
+
+    <section class="kanban" aria-label="Task board">
+      <section class="kanban__column" data-status="todo">
+        <h3>To-Do <span class="kanban__count">0</span></h3>
+        <div class="kanban__list"></div>
+      </section>
+
+      <section class="kanban__column" data-status="progress">
+        <h3>In Progress <span class="kanban__count">0</span></h3>
+        <div class="kanban__list"></div>
+      </section>
+
+      <section class="kanban__column" data-status="done">
+        <h3>Completed <span class="kanban__count">0</span></h3>
+        <div class="kanban__list"></div>
+      </section>
+    </section>
+  </main>
 
   <div class="modal" id="new-task-modal">
     <div class="modal__box">
@@ -110,8 +111,8 @@
   </footer>
 
   <script src="../js/nav-toggle.js"></script>
-  <script src="../js/modal.js"></script>
   <script src="../js/data.js"></script>
+  <script src="../js/modal.js"></script>
   <script src="../js/kanban-interactions.js"></script>
   <script src="../js/auth.js"></script>
 </body>

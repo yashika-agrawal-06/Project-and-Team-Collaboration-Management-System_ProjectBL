@@ -1,8 +1,8 @@
 var TASK_KEY = 'cb_tasks';
 var PROJECT_KEY = 'cb_projects';
 var TEAM_KEY = 'cb_team';
-var USER_NAME_KEY = 'cb_user_name';
-var USER_PICTURE_KEY = 'cb_user_picture';
+var PROJECT_KEY = 'cb_projects';
+var TASK_KEY = 'cb_tasks';
 
 var DEFAULT_TASKS = [
   { id: 1, title: 'Design login page', priority: 'high', status: 'todo', dueDate: null, assigneeId: 1 },
@@ -20,6 +20,15 @@ var DEFAULT_TEAM = [
   { id: 1, name: 'Yashika Agrawal', role: 'Frontend Developer' },
   { id: 2, name: 'Vishal', role: 'Frontend Developer' },
   { id: 3, name: 'Vivek Prasad', role: 'Frontend Developer' }
+];
+var DEFAULT_PROJECTS = [
+  { id: 1, name: 'CollabHub Website', progress: 65, status: 'active' },
+  { id: 2, name: 'Mobile Prototype', progress: 100, status: 'completed' }
+];
+var DEFAULT_TASKS = [
+  { id: 1, title: 'Create dashboard wireframe', priority: 'high', status: 'todo' },
+  { id: 2, title: 'Review team page', priority: 'medium', status: 'progress' },
+  { id: 3, title: 'Test navigation', priority: 'low', status: 'done' }
 ];
 
 /**
@@ -124,82 +133,26 @@ function nextId(list) {
   return maxId + 1;
 }
 
-/**
- * Display text for a project status.
- * @param {string} status - 'active' or 'completed'.
- * @returns {string}
- */
-function getStatusLabel(status) {
-  return status === 'completed' ? 'Completed' : 'Active';
-}
-
-/**
- * CSS modifier class for a project status badge.
- * @param {string} status - 'active' or 'completed'.
- * @returns {string}
- */
-function getStatusClass(status) {
-  return status === 'completed' ? 'status--completed' : 'status--active';
-}
-
-/**
- * Give projects saved before the status feature a status and originalProgress.
- * Runs before page scripts read the project list.
- */
-function migrateProjects() {
-  var stored = readValue(PROJECT_KEY);
-  if (!stored) {
-    return;
-  }
-
-  try {
-    var list = JSON.parse(stored);
-    if (!Array.isArray(list)) {
-      return;
-    }
-
-    var migrated = false;
-    for (var i = 0; i < list.length; i++) {
-      if (!list[i] || typeof list[i] !== 'object') {
-        continue;
-      }
-      if (!Object.prototype.hasOwnProperty.call(list[i], 'status')) {
-        list[i].status = list[i].progress >= 100 ? 'completed' : 'active';
-        migrated = true;
-      }
-      if (!Object.prototype.hasOwnProperty.call(list[i], 'originalProgress')) {
-        list[i].originalProgress = list[i].progress;
-        migrated = true;
-      }
-    }
-
-    if (migrated) {
-      saveList(PROJECT_KEY, list);
-    }
-  } catch (error) {
-    console.warn('Project migration failed:', error);
-  }
-}
-
-function renderProfileDisplay() {
-  var savedName = readValue(USER_NAME_KEY);
-  var savedPicture = readValue(USER_PICTURE_KEY);
+function updateProfileDisplay() {
+  var savedName = localStorage.getItem('cb_user_name');
+  var savedPicture = localStorage.getItem('cb_user_picture');
   var profileElements = document.querySelectorAll('.navbar__profile');
 
   for (var i = 0; i < profileElements.length; i++) {
-    var profile = profileElements[i];
-    profile.textContent = savedName || 'Yashika';
-
-    if (savedPicture && /^https:\/\//i.test(savedPicture)) {
-      var avatar = document.createElement('img');
-      avatar.className = 'avatar-img';
-      avatar.src = savedPicture;
-      avatar.alt = '';
-      avatar.setAttribute('aria-hidden', 'true');
-      profile.insertBefore(avatar, profile.firstChild);
+    var el = profileElements[i];
+    el.innerHTML = '';
+    if (savedPicture) {
+      var img = document.createElement('img');
+      img.className = 'avatar-img';
+      img.src = savedPicture;
+      img.alt = '';
+      el.appendChild(img);
     }
+    var span = document.createElement('span');
+    span.className = 'username';
+    span.textContent = savedName || 'User';
+    el.appendChild(span);
   }
 }
 
-migrateProjects();
-renderProfileDisplay();
+updateProfileDisplay();

@@ -8,15 +8,15 @@ var statusNames = { todo: 'To-Do', progress: 'In Progress', done: 'Completed' };
  */
 function showStats() {
   var pending = 0;
-  var activeProjects = 0;
   var completedProjects = 0;
+  var activeProjects = 0;
   for (var i = 0; i < tasks.length; i++) {
     if (tasks[i].status !== 'done') {
       pending++;
     }
   }
   for (var j = 0; j < projects.length; j++) {
-    if (projects[j].status === 'completed') {
+    if (projects[j].status === 'completed' || projects[j].progress >= 100) {
       completedProjects++;
     } else {
       activeProjects++;
