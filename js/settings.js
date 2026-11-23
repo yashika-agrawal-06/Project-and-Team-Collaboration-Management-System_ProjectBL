@@ -8,6 +8,6 @@ function onFormValid(form) {
   var name = nameInput.value.trim();
   localStorage.setItem('cb_user_name', name);
   localStorage.setItem('cb_user_email', emailInput.value.trim());
-  document.querySelector('.navbar__profile').textContent = name;
+  updateProfileDisplay();
   document.getElementById('save-message').textContent = 'Profile saved successfully';
 }

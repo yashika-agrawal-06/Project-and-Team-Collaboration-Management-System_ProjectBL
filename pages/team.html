@@ -8,30 +8,30 @@
   <link rel="stylesheet" href="../css/navbar.css">
 </head>
 <body>
-  <header class="navbar">
-    <button class="navbar__toggle" aria-label="Toggle menu">&#9776;</button>
-    <div class="navbar__brand">CollabHub</div>
-    <nav class="navbar__nav">
+  <header class="navbar" id="main-navbar">
+    <button class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-sidebar">&#9776;</button>
+    <a href="dashboard.html" class="navbar__brand">CollabHub</a>
+    <nav class="navbar__nav" role="navigation" aria-label="Main navigation">
       <a href="dashboard.html" class="navbar__link">Dashboard</a>
       <a href="kanban.html" class="navbar__link">Task Board</a>
       <a href="team.html" class="navbar__link navbar__link--active">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <div class="navbar__profile">Yashika</div>
+    <div class="navbar__profile"><span class="username">Yashika</span></div>
   </header>
 
-  <div class="layout">
-    <aside class="sidebar">
-      <ul class="sidebar__list">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="kanban.html">Task Board</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="settings.html">Settings</a></li>
-        <li><a href="index.html">Logout</a></li>
-      </ul>
-    </aside>
+  <aside class="sidebar" id="mobile-sidebar" aria-label="Mobile navigation">
+    <ul class="sidebar__list">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="kanban.html">Task Board</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="index.html">Logout</a></li>
+    </ul>
+  </aside>
+  <div class="sidebar__overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-    <main class="team-page">
+  <main class="team-page" role="main">
       <section class="card">
         <h2>Add Team Member</h2>
         <form class="team-form" data-validate novalidate>
@@ -53,8 +53,7 @@
         <h2>Team Members (<span id="team-total">0</span>)</h2>
         <div class="team-grid" id="team-list"></div>
       </section>
-    </main>
-  </div>
+  </main>
 
   <footer class="site-footer">
     <p>&copy; 2026 CollabHub — GLA University Project</p>
