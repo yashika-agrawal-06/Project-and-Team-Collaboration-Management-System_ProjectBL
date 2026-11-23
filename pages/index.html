@@ -14,6 +14,10 @@
   <main class="auth">
     <section class="auth__card">
       <h2>Welcome Back</h2>
+      <div id="google-signin-btn" class="btn-google"></div>
+      <p id="google-signin-message" class="auth__message" role="status" aria-live="polite"></p>
+      <div class="auth__divider"><span>or continue with email</span></div>
+
       <form class="auth__form" data-validate data-redirect="dashboard.html" novalidate>
         <div class="form-field">
           <label for="email">Email</label>
@@ -29,6 +33,11 @@
 
         <button type="submit" class="btn btn--primary">Log In</button>
       </form>
+
+      <div class="auth__help-links">
+        <a href="#">Forgot password?</a>
+        <p>Don't have an account? <a href="#">Sign up</a></p>
+      </div>
     </section>
   </main>
 
@@ -36,6 +45,7 @@
     <p>&copy; 2026 CollabHub — GLA University Project</p>
   </footer>
 
+  <script src="../js/auth.js"></script>
   <script src="../js/validation.js"></script>
 </body>
 </html>

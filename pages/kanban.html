@@ -21,6 +21,7 @@
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
     <button class="btn btn--primary" data-modal-open="new-task-modal">+ New Task</button>
+    <button class="navbar__profile" type="button" aria-label="Profile menu (coming soon)">Yashika</button>
   </header>
 
   <div class="layout">
@@ -30,7 +31,7 @@
         <li><a href="kanban.html">Task Board</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="settings.html">Settings</a></li>
-        <li><a href="index.html">Logout</a></li>
+        <li><a href="index.html" data-google-signout>Sign out</a></li>
       </ul>
     </aside>
 
@@ -112,5 +113,6 @@
   <script src="../js/modal.js"></script>
   <script src="../js/data.js"></script>
   <script src="../js/kanban-interactions.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>
