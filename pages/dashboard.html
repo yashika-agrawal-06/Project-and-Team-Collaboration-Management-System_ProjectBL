@@ -18,7 +18,7 @@
       <a href="team.html" class="navbar__link">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <div class="navbar__profile">admin</div>
+    <div class="navbar__profile">Yashika</div>
   </header>
 
   <div class="layout">
@@ -34,9 +34,9 @@
 
     <main class="dashboard">
       <section class="dashboard-grid">
-        <article class="card"><h3>Active Projects</h3><p class="stat" id="project-count">2</p></article>
-        <article class="card"><h3>Pending Tasks</h3><p class="stat">12</p></article>
-        <article class="card"><h3>Team Members</h3><p class="stat">3</p></article>
+        <article class="card"><h3>Active Projects</h3><p class="stat" id="project-count">0</p></article>
+        <article class="card"><h3>Pending Tasks</h3><p class="stat" id="pending-count">0</p></article>
+        <article class="card"><h3>Team Members</h3><p class="stat" id="team-count">0</p></article>
       </section>
 
       <section>
@@ -44,27 +44,12 @@
           <h2>Projects</h2>
           <button class="btn btn--primary" data-modal-open="project-modal">+ New Project</button>
         </div>
-        <div class="project-grid" id="project-list">
-          <article class="project-card">
-            <h4>Collaboration Portal UI</h4>
-            <div class="progress"><div class="progress__bar" style="width: 65%"></div></div>
-            <small>65% complete</small>
-          </article>
-          <article class="project-card">
-            <h4>Documentation</h4>
-            <div class="progress"><div class="progress__bar" style="width: 30%"></div></div>
-            <small>30% complete</small>
-          </article>
-        </div>
+        <div class="project-grid" id="project-list"></div>
       </section>
 
       <section>
         <h2>Recent Tasks</h2>
-        <ul class="task-list">
-          <li><button class="task-list__item" data-modal-open="task-modal">Design login page</button></li>
-          <li><button class="task-list__item" data-modal-open="task-modal">Build dashboard grid</button></li>
-          <li><button class="task-list__item" data-modal-open="task-modal">Write project synopsis</button></li>
-        </ul>
+        <ul class="task-list" id="recent-tasks"></ul>
       </section>
     </main>
   </div>
@@ -75,9 +60,9 @@
         <h3>Task Details</h3>
         <button class="modal__close" data-modal-close aria-label="Close">&times;</button>
       </div>
-      <p><strong>Status:</strong> In Progress</p>
-      <p><strong>Assignee:</strong> Team Member</p>
-      <p><strong>Due:</strong> This week</p>
+      <p><strong>Title:</strong> <span id="detail-title"></span></p>
+      <p><strong>Status:</strong> <span id="detail-status"></span></p>
+      <p><strong>Priority:</strong> <span id="detail-priority"></span></p>
     </div>
   </div>
 
@@ -109,6 +94,7 @@
   <script src="../js/nav-toggle.js"></script>
   <script src="../js/data.js"></script>
   <script src="../js/modal.js"></script>
+  <script src="../js/data.js"></script>
   <script src="../js/projects.js"></script>
 </body>
 </html>
