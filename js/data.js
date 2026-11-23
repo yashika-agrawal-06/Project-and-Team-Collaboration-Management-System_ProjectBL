@@ -1,6 +1,8 @@
 var TASK_KEY = 'cb_tasks';
 var PROJECT_KEY = 'cb_projects';
 var TEAM_KEY = 'cb_team';
+var USER_NAME_KEY = 'cb_user_name';
+var USER_PICTURE_KEY = 'cb_user_picture';
 
 var DEFAULT_TASKS = [
   { id: 1, title: 'Design login page', priority: 'high', status: 'todo', dueDate: null, assigneeId: 1 },
@@ -142,29 +144,35 @@ function getStatusClass(status) {
 
 /**
  * Give projects saved before the status feature a status and originalProgress.
- * Runs on every page load, before any page script reads the project list.
+ * Runs before page scripts read the project list.
  */
 function migrateProjects() {
   var stored = readValue(PROJECT_KEY);
   if (!stored) {
     return;
   }
+
   try {
     var list = JSON.parse(stored);
     if (!Array.isArray(list)) {
       return;
     }
+
     var migrated = false;
     for (var i = 0; i < list.length; i++) {
-      if (!list[i].hasOwnProperty('status')) {
+      if (!list[i] || typeof list[i] !== 'object') {
+        continue;
+      }
+      if (!Object.prototype.hasOwnProperty.call(list[i], 'status')) {
         list[i].status = list[i].progress >= 100 ? 'completed' : 'active';
         migrated = true;
       }
-      if (!list[i].hasOwnProperty('originalProgress')) {
+      if (!Object.prototype.hasOwnProperty.call(list[i], 'originalProgress')) {
         list[i].originalProgress = list[i].progress;
         migrated = true;
       }
     }
+
     if (migrated) {
       saveList(PROJECT_KEY, list);
     }
@@ -173,12 +181,25 @@ function migrateProjects() {
   }
 }
 
-migrateProjects();
-
-var savedName = readValue('cb_user_name');
-if (savedName) {
+function renderProfileDisplay() {
+  var savedName = readValue(USER_NAME_KEY);
+  var savedPicture = readValue(USER_PICTURE_KEY);
   var profileElements = document.querySelectorAll('.navbar__profile');
+
   for (var i = 0; i < profileElements.length; i++) {
-    profileElements[i].textContent = savedName;
+    var profile = profileElements[i];
+    profile.textContent = savedName || 'Yashika';
+
+    if (savedPicture && /^https:\/\//i.test(savedPicture)) {
+      var avatar = document.createElement('img');
+      avatar.className = 'avatar-img';
+      avatar.src = savedPicture;
+      avatar.alt = '';
+      avatar.setAttribute('aria-hidden', 'true');
+      profile.insertBefore(avatar, profile.firstChild);
+    }
   }
 }
+
+migrateProjects();
+renderProfileDisplay();

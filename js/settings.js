@@ -10,8 +10,17 @@ emailInput.value = readValue('cb_user_email') || '';
  */
 function onFormValid(form) {
   var name = nameInput.value.trim();
-  saveValue('cb_user_name', name);
-  saveValue('cb_user_email', emailInput.value.trim());
-  document.querySelector('.navbar__profile').textContent = name;
-  document.getElementById('save-message').textContent = 'Profile saved successfully';
+  var nameSaved = saveValue('cb_user_name', name);
+  var emailSaved = saveValue('cb_user_email', emailInput.value.trim());
+  var saveMessage = document.getElementById('save-message');
+
+  if (!nameSaved || !emailSaved) {
+    saveMessage.className = 'form-error';
+    saveMessage.textContent = 'Could not save your profile. Please try again.';
+    return;
+  }
+
+  renderProfileDisplay();
+  saveMessage.className = 'form-success';
+  saveMessage.textContent = 'Profile saved successfully';
 }
