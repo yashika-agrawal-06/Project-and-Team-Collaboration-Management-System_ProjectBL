@@ -1,5 +1,10 @@
 var team = getList(TEAM_KEY, DEFAULT_TEAM);
 
+/**
+ * Build the card for one team member.
+ * @param {{id: number, name: string, role: string}} member
+ * @returns {HTMLElement}
+ */
 function createMemberCard(member) {
   var card = document.createElement('article');
   card.className = 'member-card';
@@ -32,6 +37,9 @@ function createMemberCard(member) {
   return card;
 }
 
+/**
+ * Render the team list and member count.
+ */
 function showTeam() {
   var list = document.getElementById('team-list');
   list.innerHTML = '';
@@ -49,6 +57,10 @@ function showTeam() {
   }
 }
 
+/**
+ * Add a team member from the form. Called by validation.js after the form passes validation.
+ * @param {HTMLFormElement} form
+ */
 function onFormValid(form) {
   var nameInput = document.getElementById('member-name');
   var roleInput = document.getElementById('member-role');

@@ -155,3 +155,64 @@
 .task-list__status { float: right; font-size: 0.8rem; color: var(--color-muted); }
 
 .empty { color: var(--color-muted); font-style: italic; }
+/* Project card actions */
+:root {
+  --space-xs: 4px;
+}
+
+.project-card__top {
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.project-card__actions {
+  display: flex;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+/* Project status badge */
+.project-status {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.status--active {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status--completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Complete / Reactivate button */
+.btn-toggle-status {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn-toggle-status:hover { background: var(--color-primary-dark); }
+.btn-toggle-status:active { transform: scale(0.98); }
+
+.btn-toggle-status--active { background: #16a34a; }
+.btn-toggle-status--active:hover { background: #15803d; }
+
+/* Completed progress bar */
+.progress__bar--completed {
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+}
