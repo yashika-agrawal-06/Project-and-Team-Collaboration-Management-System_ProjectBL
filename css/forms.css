@@ -71,3 +71,29 @@
 .tag--high { background: #dc2626; }
 .tag--medium { background: #d97706; }
 .tag--low { background: #16a34a; }
+
+.kanban__list { min-height: 120px; }
+
+.kanban__card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.card-title { flex: 1; }
+
+.kanban .tag { margin-left: 0; }
+
+.kanban-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.kanban-toolbar select {
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
