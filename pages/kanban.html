@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,53 +22,59 @@
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
     <button class="btn btn--primary" data-modal-open="new-task-modal">+ New Task</button>
+    <button class="navbar__profile" type="button" aria-label="Profile menu">Yashika</button>
   </header>
 
+  <!-- Mobile drawer -->
   <aside class="sidebar" id="mobile-sidebar" aria-label="Mobile navigation">
     <ul class="sidebar__list">
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="kanban.html">Task Board</a></li>
       <li><a href="team.html">Team</a></li>
       <li><a href="settings.html">Settings</a></li>
-      <li><a href="index.html">Logout</a></li>
+      <li><a href="index.html" data-google-signout>Sign out</a></li>
     </ul>
   </aside>
   <div class="sidebar__overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
   <main class="board" role="main">
-      <div class="kanban-toolbar">
-        <input type="search" id="task-filter" placeholder="Filter tasks...">
-        <select id="priority-filter">
-          <option value="all">All priorities</option>
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
-        </select>
-        <button type="button" id="clear-done" class="btn btn--secondary">Clear Completed</button>
-      </div>
+    <div class="kanban-toolbar">
+      <input type="search" id="task-filter" placeholder="Filter tasks...">
+      <select id="priority-filter">
+        <option value="all">All priorities</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <select id="assignee-filter" aria-label="Filter by assignee">
+        <option value="all">All assignees</option>
+      </select>
+      <button type="button" id="clear-done" class="btn btn--secondary">Clear Completed</button>
+    </div>
+    <p class="kanban-hint">Double-click a card (or press Enter) to edit it. Use the arrow keys to move between cards, Shift + Left/Right to move a task to another column, and Delete to remove it.</p>
 
-      <section class="kanban" aria-label="Task board">
-        <section class="kanban__column" data-status="todo">
-          <h3>To-Do <span class="kanban__count">0</span></h3>
-          <div class="kanban__list"></div>
-        </section>
-
-        <section class="kanban__column" data-status="progress">
-          <h3>In Progress <span class="kanban__count">0</span></h3>
-          <div class="kanban__list"></div>
-        </section>
-
-        <section class="kanban__column" data-status="done">
-          <h3>Completed <span class="kanban__count">0</span></h3>
-          <div class="kanban__list"></div>
-        </section>
+    <section class="kanban" aria-label="Task board">
+      <section class="kanban__column" data-status="todo">
+        <h3>To-Do <span class="kanban__count">0</span></h3>
+        <div class="kanban__list"></div>
       </section>
+
+      <section class="kanban__column" data-status="progress">
+        <h3>In Progress <span class="kanban__count">0</span></h3>
+        <div class="kanban__list"></div>
+      </section>
+
+      <section class="kanban__column" data-status="done">
+        <h3>Completed <span class="kanban__count">0</span></h3>
+        <div class="kanban__list"></div>
+      </section>
+    </section>
   </main>
 
   <div class="modal" id="new-task-modal">
     <div class="modal__box">
       <div class="modal__header">
-        <h3>New Task</h3>
+        <h3 id="task-modal-title">New Task</h3>
         <button class="modal__close" data-modal-close aria-label="Close">&times;</button>
       </div>
       <form id="task-form" novalidate>
@@ -84,7 +91,17 @@
             <option value="low">Low</option>
           </select>
         </div>
-        <button type="submit" class="btn btn--primary">Add Task</button>
+        <div class="form-group">
+          <label for="task-due">Due Date (optional)</label>
+          <input type="date" id="task-due">
+        </div>
+        <div class="form-group">
+          <label for="task-assignee">Assign To</label>
+          <select id="task-assignee">
+            <option value="">Unassigned</option>
+          </select>
+        </div>
+        <button type="submit" id="task-submit" class="btn btn--primary">Add Task</button>
       </form>
     </div>
   </div>
@@ -94,8 +111,9 @@
   </footer>
 
   <script src="../js/nav-toggle.js"></script>
-  <script src="../js/modal.js"></script>
   <script src="../js/data.js"></script>
+  <script src="../js/modal.js"></script>
   <script src="../js/kanban-interactions.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>

@@ -18,40 +18,41 @@
       <a href="team.html" class="navbar__link">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <div class="navbar__profile"><span class="username">Yashika</span></div>
+    <button class="navbar__profile" type="button" aria-label="Profile menu">Yashika</button>
   </header>
 
+  <!-- Mobile drawer -->
   <aside class="sidebar" id="mobile-sidebar" aria-label="Mobile navigation">
     <ul class="sidebar__list">
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="kanban.html">Task Board</a></li>
       <li><a href="team.html">Team</a></li>
       <li><a href="settings.html">Settings</a></li>
-      <li><a href="index.html">Logout</a></li>
+      <li><a href="index.html" data-google-signout>Sign out</a></li>
     </ul>
   </aside>
   <div class="sidebar__overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
   <main class="dashboard" role="main">
-      <section class="dashboard-grid">
-        <article class="card"><h3>Active Projects</h3><p class="stat" id="project-count">0</p></article>
-        <article class="card"><h3>Completed Projects</h3><p class="stat" id="completed-count">0</p></article>
-        <article class="card"><h3>Pending Tasks</h3><p class="stat" id="pending-count">0</p></article>
-        <article class="card"><h3>Team Members</h3><p class="stat" id="team-count">0</p></article>
-      </section>
+    <section class="dashboard-grid">
+      <article class="card"><h3>Active Projects</h3><p class="stat" id="project-count">0</p></article>
+      <article class="card"><h3>Completed Projects</h3><p class="stat" id="completed-count">0</p></article>
+      <article class="card"><h3>Pending Tasks</h3><p class="stat" id="pending-count">0</p></article>
+      <article class="card"><h3>Team Members</h3><p class="stat" id="team-count">0</p></article>
+    </section>
 
-      <section>
-        <div class="section-head">
-          <h2>Projects</h2>
-          <button class="btn btn--primary" data-modal-open="project-modal">+ New Project</button>
-        </div>
-        <div class="project-grid" id="project-list"></div>
-      </section>
+    <section>
+      <div class="section-head">
+        <h2>Projects</h2>
+        <button class="btn btn--primary" data-modal-open="project-modal">+ New Project</button>
+      </div>
+      <div class="project-grid" id="project-list"></div>
+    </section>
 
-      <section>
-        <h2>Recent Tasks</h2>
-        <ul class="task-list" id="recent-tasks"></ul>
-      </section>
+    <section>
+      <h2>Recent Tasks</h2>
+      <ul class="task-list" id="recent-tasks"></ul>
+    </section>
   </main>
 
   <div class="modal" id="task-modal">
@@ -92,8 +93,9 @@
   </footer>
 
   <script src="../js/nav-toggle.js"></script>
-  <script src="../js/modal.js"></script>
   <script src="../js/data.js"></script>
+  <script src="../js/modal.js"></script>
   <script src="../js/projects.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>

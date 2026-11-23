@@ -3,6 +3,9 @@ var tasks = getList(TASK_KEY, DEFAULT_TASKS);
 var team = getList(TEAM_KEY, DEFAULT_TEAM);
 var statusNames = { todo: 'To-Do', progress: 'In Progress', done: 'Completed' };
 
+/**
+ * Update the stat cards: active projects, completed projects, pending tasks, team size.
+ */
 function showStats() {
   var pending = 0;
   var completedProjects = 0;
@@ -25,15 +28,40 @@ function showStats() {
   document.getElementById('team-count').textContent = team.length;
 }
 
+/**
+ * Build the card for one project: name, status badge, Complete/Reactivate and Delete buttons, progress bar.
+ * @param {{id: number, name: string, progress: number, status: string}} project
+ * @returns {HTMLElement}
+ */
 function createProjectCard(project) {
+  var status = project.status || 'active';
+  var isCompleted = status === 'completed';
+
   var card = document.createElement('article');
   card.className = 'project-card';
+  card.dataset.projectId = project.id;
 
   var top = document.createElement('div');
   top.className = 'project-card__top';
 
   var title = document.createElement('h4');
   title.textContent = project.name;
+
+  var statusBadge = document.createElement('span');
+  statusBadge.className = 'project-status ' + getStatusClass(status);
+  statusBadge.textContent = getStatusLabel(status);
+  statusBadge.dataset.status = status;
+
+  var actions = document.createElement('div');
+  actions.className = 'project-card__actions';
+
+  var toggleBtn = document.createElement('button');
+  toggleBtn.className = 'btn-toggle-status' + (isCompleted ? ' btn-toggle-status--active' : '');
+  toggleBtn.textContent = isCompleted ? 'Reactivate' : 'Complete';
+  toggleBtn.setAttribute('aria-label', isCompleted ? 'Mark as active' : 'Mark as completed');
+  toggleBtn.addEventListener('click', function () {
+    toggleProjectStatus(project.id);
+  });
 
   var del = document.createElement('button');
   del.className = 'btn-delete';
@@ -47,18 +75,22 @@ function createProjectCard(project) {
     }
   });
 
+  actions.appendChild(toggleBtn);
+  actions.appendChild(del);
+
   top.appendChild(title);
-  top.appendChild(del);
+  top.appendChild(statusBadge);
+  top.appendChild(actions);
 
   var track = document.createElement('div');
   track.className = 'progress';
   var bar = document.createElement('div');
-  bar.className = 'progress__bar';
-  bar.style.width = project.progress + '%';
+  bar.className = 'progress__bar' + (isCompleted ? ' progress__bar--completed' : '');
+  bar.style.width = (isCompleted ? 100 : project.progress) + '%';
   track.appendChild(bar);
 
   var label = document.createElement('small');
-  label.textContent = project.progress + '% complete';
+  label.textContent = isCompleted ? 'Completed' : project.progress + '% complete';
 
   card.appendChild(top);
   card.appendChild(track);
@@ -66,6 +98,9 @@ function createProjectCard(project) {
   return card;
 }
 
+/**
+ * Render every project card, or an empty message when there are none.
+ */
 function showProjects() {
   var list = document.getElementById('project-list');
   list.innerHTML = '';
@@ -81,6 +116,39 @@ function showProjects() {
   }
 }
 
+/**
+ * Switch a project between active and completed.
+ * Completing saves the current progress in originalProgress and sets progress to 100;
+ * reactivating puts the saved progress back.
+ * @param {number} projectId
+ */
+function toggleProjectStatus(projectId) {
+  var project = findById(projects, projectId);
+  if (!project) {
+    return;
+  }
+
+  if (project.status === 'completed') {
+    project.status = 'active';
+    if (typeof project.originalProgress === 'number') {
+      project.progress = project.originalProgress;
+    }
+  } else {
+    project.originalProgress = project.progress;
+    project.progress = 100;
+    project.status = 'completed';
+  }
+
+  saveList(PROJECT_KEY, projects);
+  showProjects();
+  showStats();
+}
+
+/**
+ * Build a Recent Tasks list item that opens the task details modal.
+ * @param {{title: string, status: string, priority: string}} task
+ * @returns {HTMLLIElement}
+ */
 function createTaskItem(task) {
   var item = document.createElement('li');
   var button = document.createElement('button');
@@ -103,6 +171,9 @@ function createTaskItem(task) {
   return item;
 }
 
+/**
+ * Show the three most recently added tasks.
+ */
 function showRecentTasks() {
   var list = document.getElementById('recent-tasks');
   list.innerHTML = '';
@@ -140,7 +211,13 @@ document.getElementById('project-form').addEventListener('submit', function (eve
     progress = 100;
   }
 
-  projects.push({ id: nextId(projects), name: name, progress: progress });
+  projects.push({
+    id: nextId(projects),
+    name: name,
+    progress: progress,
+    originalProgress: progress,
+    status: 'active'
+  });
   saveList(PROJECT_KEY, projects);
 
   nameInput.value = '';

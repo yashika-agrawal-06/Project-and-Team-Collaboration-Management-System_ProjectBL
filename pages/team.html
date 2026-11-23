@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,42 +18,43 @@
       <a href="team.html" class="navbar__link navbar__link--active">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <div class="navbar__profile"><span class="username">Yashika</span></div>
+    <button class="navbar__profile" type="button" aria-label="Profile menu">Yashika</button>
   </header>
 
+  <!-- Mobile drawer -->
   <aside class="sidebar" id="mobile-sidebar" aria-label="Mobile navigation">
     <ul class="sidebar__list">
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="kanban.html">Task Board</a></li>
       <li><a href="team.html">Team</a></li>
       <li><a href="settings.html">Settings</a></li>
-      <li><a href="index.html">Logout</a></li>
+      <li><a href="index.html" data-google-signout>Sign out</a></li>
     </ul>
   </aside>
   <div class="sidebar__overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
   <main class="team-page" role="main">
-      <section class="card">
-        <h2>Add Team Member</h2>
-        <form class="team-form" data-validate novalidate>
-          <div class="form-field">
-            <label for="member-name">Name</label>
-            <input type="text" id="member-name" required placeholder="Full name">
-            <span class="form-error"></span>
-          </div>
-          <div class="form-field">
-            <label for="member-role">Role</label>
-            <input type="text" id="member-role" required placeholder="e.g. Tester">
-            <span class="form-error"></span>
-          </div>
-          <button type="submit" class="btn btn--primary">Add Member</button>
-        </form>
-      </section>
+    <section class="card">
+      <h2>Add Team Member</h2>
+      <form class="team-form" data-validate novalidate>
+        <div class="form-field">
+          <label for="member-name">Name</label>
+          <input type="text" id="member-name" required placeholder="Full name">
+          <span class="form-error"></span>
+        </div>
+        <div class="form-field">
+          <label for="member-role">Role</label>
+          <input type="text" id="member-role" required placeholder="e.g. Tester">
+          <span class="form-error"></span>
+        </div>
+        <button type="submit" class="btn btn--primary">Add Member</button>
+      </form>
+    </section>
 
-      <section>
-        <h2>Team Members (<span id="team-total">0</span>)</h2>
-        <div class="team-grid" id="team-list"></div>
-      </section>
+    <section>
+      <h2>Team Members (<span id="team-total">0</span>)</h2>
+      <div class="team-grid" id="team-list"></div>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -63,5 +65,6 @@
   <script src="../js/validation.js"></script>
   <script src="../js/data.js"></script>
   <script src="../js/team.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>

@@ -1,3 +1,8 @@
+/**
+ * Show or clear the error message under a form field.
+ * @param {HTMLInputElement} input
+ * @param {string} message - Error text, or '' to clear it.
+ */
 function showError(input, message) {
   var error = input.parentElement.querySelector('.form-error');
   if (error) {
@@ -10,6 +15,11 @@ function showError(input, message) {
   }
 }
 
+/**
+ * Check one field (required, email format, password length) and show any error.
+ * @param {HTMLInputElement} input
+ * @returns {boolean} True if the field is valid.
+ */
 function validateField(input) {
   var value = input.value.trim();
 
@@ -40,6 +50,11 @@ function validateField(input) {
   return true;
 }
 
+/**
+ * Validate a form's inputs as the user types and on submit. A valid form either
+ * goes to its data-redirect page or calls the page's onFormValid(form).
+ * @param {HTMLFormElement} form
+ */
 function setupForm(form) {
   var fields = form.querySelectorAll('input');
 
