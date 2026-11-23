@@ -162,3 +162,58 @@ h3 {
 }
 
 .form-success { color: #16a34a; font-size: 0.9rem; }
+
+.settings__signout { margin-top: var(--space-md); }
+
+.btn-google {
+  width: 100%;
+  min-height: 40px;
+  margin-top: var(--space-md);
+}
+
+.auth__divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin: var(--space-md) 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.auth__divider::before,
+.auth__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.auth__message {
+  margin-top: var(--space-sm);
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.auth__help-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth__help-links,
+.auth__help-links a {
+  color: var(--color-muted);
+}
+
+.auth__help-links a {
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.auth__help-links a:hover {
+  text-decoration: underline;
+}

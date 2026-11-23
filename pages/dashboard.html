@@ -18,7 +18,7 @@
       <a href="team.html" class="navbar__link">Team</a>
       <a href="settings.html" class="navbar__link">Settings</a>
     </nav>
-    <div class="navbar__profile">Yashika</div>
+    <button class="navbar__profile" type="button" aria-label="Profile menu (coming soon)">Yashika</button>
   </header>
 
   <div class="layout">
@@ -28,13 +28,14 @@
         <li><a href="kanban.html">Task Board</a></li>
         <li><a href="team.html">Team</a></li>
         <li><a href="settings.html">Settings</a></li>
-        <li><a href="index.html">Logout</a></li>
+        <li><a href="index.html" data-google-signout>Sign out</a></li>
       </ul>
     </aside>
 
     <main class="dashboard">
       <section class="dashboard-grid">
         <article class="card"><h3>Active Projects</h3><p class="stat" id="project-count">0</p></article>
+        <article class="card"><h3>Completed Projects</h3><p class="stat" id="completed-project-count">0</p></article>
         <article class="card"><h3>Pending Tasks</h3><p class="stat" id="pending-count">0</p></article>
         <article class="card"><h3>Team Members</h3><p class="stat" id="team-count">0</p></article>
       </section>
@@ -94,7 +95,7 @@
   <script src="../js/nav-toggle.js"></script>
   <script src="../js/data.js"></script>
   <script src="../js/modal.js"></script>
-  <script src="../js/data.js"></script>
   <script src="../js/projects.js"></script>
+  <script src="../js/auth.js"></script>
 </body>
 </html>

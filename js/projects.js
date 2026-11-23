@@ -5,12 +5,22 @@ var statusNames = { todo: 'To-Do', progress: 'In Progress', done: 'Completed' };
 
 function showStats() {
   var pending = 0;
+  var activeProjects = 0;
+  var completedProjects = 0;
   for (var i = 0; i < tasks.length; i++) {
     if (tasks[i].status !== 'done') {
       pending++;
     }
   }
-  document.getElementById('project-count').textContent = projects.length;
+  for (var j = 0; j < projects.length; j++) {
+    if (projects[j].status === 'completed') {
+      completedProjects++;
+    } else {
+      activeProjects++;
+    }
+  }
+  document.getElementById('project-count').textContent = activeProjects;
+  document.getElementById('completed-project-count').textContent = completedProjects;
   document.getElementById('pending-count').textContent = pending;
   document.getElementById('team-count').textContent = team.length;
 }
